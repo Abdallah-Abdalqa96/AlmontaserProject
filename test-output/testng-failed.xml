@@ -5,9 +5,14 @@
     <classes>
       <class name="almosafer.MyFirstProject">
         <methods>
+          <include name="CheckTheSortOption"/>
+          <include name="CheckDepatureDate"/>
           <include name="CheckSarIsDefualt"/>
+          <include name="CheckThatThePageIsFullyLoaded"/>
+          <include name="RandomlyChangeTheLanguage"/>
           <include name="CheckNumIsareCorrect"/>
           <include name="checkLanEnIsCorrect"/>
+          <include name="CheckReturnDate"/>
           <include name="verifyGitafLogoIsDisplayed"/>
           <include name="mysetup"/>
         </methods>
