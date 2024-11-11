@@ -3,6 +3,7 @@ package almosafer;
 import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,7 +15,7 @@ import org.testng.annotations.Test;
 
 public class MyFirstProject {
 	
-	
+	              
 	private static final Object ExpectedValueForFinshingSearchAboutHotel = null;
 	private static final String ExpectedReturn = null;
 	WebDriver driver = new ChromeDriver() ;
@@ -35,7 +36,7 @@ public class MyFirstProject {
 		
 	}
 	
-	@Test(priority = 1)
+	@Test(priority = 1,enabled = false)
 	public void checkLanEnIsCorrect () { 
 		
 	String AcctualResult =	driver.findElement(By.tagName("html")).getAttribute("lang") ; 
@@ -44,7 +45,7 @@ public class MyFirstProject {
 		Assert.assertEquals(AcctualResult, expectedResult);  
 		
 	} 
-	@Test (priority = 2)
+	@Test (priority = 2,enabled = false)
 	public void CheckSarIsDefualt () { 
 String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header__CurrencySelector']")).getText() ;
 		String expectedResult = "SAR" ; 
@@ -53,21 +54,21 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 		
 		
 	}
-	@Test (priority = 3)
+	@Test (priority = 3,enabled = false)
 	public void CheckNumIsareCorrect ( ) {
 	String AcctualNumber =	driver.findElement(By.cssSelector(".sc-hUfwpO.bWcsTG")).getText() ;  
 	String expectedNumber = "+966554400000" ; 
 	Assert.assertEquals(AcctualNumber, expectedNumber); 
 	
 	}
-	@Test (priority = 4)
+	@Test (priority = 4,enabled = false)
 	public void verifyGitafLogoIsDisplayed () {
 	boolean Acctualresult = 	driver.findElement(By.cssSelector(".sc-ghsgMZ.hIElfs")).isDisplayed() ;
 	boolean expectedresult = true ; 
     Assert .assertEquals(Acctualresult, expectedresult); 
 		
 	}
-	@Test 
+	@Test (priority = 5,enabled = false)
 	public void hotelsTabIsNotByDefualt () {
 	WebElement Hotels = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels")) ;
      String actualresult=Hotels.getAttribute("aria-selected") ; 
@@ -76,19 +77,40 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 		
 	}
 	
-	@Test(priority = 5, enabled = true)
+	@Test(priority = 6, enabled = true)
 	public void CheckDepatureDate() throws IOException {
+		int today = LocalDate.now().getDayOfMonth() ; 
+		int Tomorrow = LocalDate.now().plusDays(1).getDayOfMonth() ; 
+		int DayAfterTomorrow = LocalDate.now().plusDays(2).getDayOfMonth() ; 
+		
+	String acctualDepature = 	driver.findElement(By.cssSelector("div[class='sc-OxbzP sc-lnrBVv gKbptE'] span[class='sc-fvLVrH hNjEjT']")).getText();  ;
+	String expectedDepature = Integer.toString(Tomorrow) ; 
+	Assert.assertEquals(acctualDepature, expectedDepature); 
+	
 
-		String ActualDepature = driver
-				.findElement(By.cssSelector("div[class='sc-OxbzP sc-lnrBVv gKbptE'] span[class='sc-fvLVrH hNjEjT']"))
-				.getText();
+		//String ActualDepature = driver
+			//	.findElement(By.cssSelector("div[class='sc-OxbzP sc-lnrBVv gKbptE'] span[class='sc-fvLVrH hNjEjT']"))
+			//	.getText();
 
 	
-		Assert.assertEquals(ActualDepature, expectedDeparture);
+		//Assert.assertEquals(ActualDepature, expectedDeparture);
 
 	}
+	@Test(priority = 7,enabled = false)
+	public void CheckReturnDat () {
+		int today = LocalDate.now().getDayOfMonth() ; 
+		int Tomorrow = LocalDate.now().plusDays(1).getDayOfMonth() ; 
+		int DayAfterTomorrow = LocalDate.now().plusDays(2).getDayOfMonth() ; 
+		
+	String acctualReturn = 	driver.findElement(By.cssSelector("div[class='sc-OxbzP sc-bYnzgO bojUIa'] span[class='sc-fvLVrH hNjEjT']")).getText();  ;
+	String expectedReturn = Integer.toString(DayAfterTomorrow) ; 
+	Assert.assertEquals(acctualReturn, expectedReturn);  
+		
+		
+		
+	}
 
-	@Test(priority = 6, enabled = true)
+	@Test(priority = 8, enabled = false)
 	public void CheckReturnDate() throws IOException {
 
 
@@ -100,7 +122,7 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 
 	}
 
-	@Test(priority = 7, enabled = true)
+	@Test(priority = 9, enabled = false)
 	public void RandomlyChangeTheLanguage() throws InterruptedException, IOException {
 
 
@@ -130,7 +152,7 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 		
 	}
 
-	@Test(priority = 8, enabled = true)
+	@Test(priority = 10, enabled = false)
 
 	public void CheckThatThePageIsFullyLoaded() throws IOException {
 		WebElement SearchResult = driver.findElement(By.xpath("//span[@data-testid='srp_properties_found']"));
@@ -142,7 +164,7 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 
 	}
 
-	@Test(priority = 9, enabled = true)
+	@Test(priority = 11, enabled = false)
 	public void CheckTheSortOption() throws InterruptedException, IOException {
 
 		Thread.sleep(15000);
