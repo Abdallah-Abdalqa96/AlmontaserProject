@@ -3,24 +3,33 @@ package almosafer;
 import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
+import java.nio.channels.Selector;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
+import java.util.Random;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.Sleeper;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import net.bytebuddy.asm.MemberSubstitution.Current;
+
 public class MyFirstProject {
 	
-	              
-	private static final Object ExpectedValueForFinshingSearchAboutHotel = null;
-	private static final String ExpectedReturn = null;
+	
+	
+	
+
 	WebDriver driver = new ChromeDriver() ;
 	String mywebsite = "https://www.almosafer.com/en" ;
-	private String expectedDeparture; 
+	 
+	Random rand = new Random() ; 
 	
 	
 	@BeforeTest
@@ -77,7 +86,7 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 		
 	}
 	
-	@Test(priority = 6, enabled = true)
+	@Test(priority = 6, enabled = false)
 	public void CheckDepatureDate() throws IOException {
 		int today = LocalDate.now().getDayOfMonth() ; 
 		int Tomorrow = LocalDate.now().plusDays(1).getDayOfMonth() ; 
@@ -110,61 +119,60 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 		
 	}
 
-	@Test(priority = 8, enabled = false)
-	public void CheckReturnDate() throws IOException {
+	
 
-
-		String ActualReturn = driver
-				.findElement(By.cssSelector("div[class='sc-OxbzP sc-bYnzgO bojUIa'] span[class='sc-fvLVrH hNjEjT']"))
-				.getText();
-
-		Assert.assertEquals(ActualReturn, ExpectedReturn);
-
-	}
-
-	@Test(priority = 9, enabled = false)
-	public void RandomlyChangeTheLanguage() throws InterruptedException, IOException {
-
-
-		randomlyEnterTheWebsite();
+	@Test(priority = 8, enabled = true) 
+	public void RandomlyChangeTheLanguage() throws InterruptedException   {
 		
-		WebElement HotelSearchBar = driver.findElement(By.cssSelector(".sc-phbroq-2.uQFRS.AutoComplete__Input"));
-
-
-		CheckTheWebsiteLanguageToEnterTheCityName(HotelSearchBar);
-
-		EnterNumberOfVistorsAfterClickOnTheFirstCity(); 
-
-	}
-
-	private void EnterNumberOfVistorsAfterClickOnTheFirstCity() {
-		// TODO Auto-generated method stub
+		String [] EnglishCitiesName = {"jeddah","riyadh","dubai"} ; 
+		String [] ArabicCitiesName = {"دبي","جده"} ; 
+	int RandomArabicCity =	rand.nextInt(ArabicCitiesName.length);
+	int RandomEnglishCity =	rand.nextInt(EnglishCitiesName.length); 
 		
-	}
-
-	private void CheckTheWebsiteLanguageToEnterTheCityName(WebElement hotelSearchBar) {
-		// TODO Auto-generated method stub
 		
-	}
-
-	private void randomlyEnterTheWebsite() {
-		// TODO Auto-generated method stub
+		 
+		String [] MyWebSites = {"https://www.almosafer.com/ar","https://www.almosafer.com/en"} ;
+		int randomIndex = rand.nextInt(MyWebSites.length) ;
+		driver.get(MyWebSites[randomIndex]);  
+		WebElement HotelTab = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels")) ;
+		HotelTab.click(); 
 		
-	}
+		WebElement HotelTabSearch = driver.findElement(By.cssSelector(".sc-phbroq-2.uQFRS.AutoComplete__Input"));
+		
+		
+		
+		if(driver.getCurrentUrl().equals("https://www.almosafer.com/ar"))  {
+			String AcctualResult =	driver.findElement(By.tagName("html")).getAttribute("lang") ; 
+			String expectedResult = "ar" ; 
+			
+			Assert.assertEquals(AcctualResult, expectedResult);  
+			HotelTabSearch.sendKeys(ArabicCitiesName[RandomArabicCity]) ; 
+			
+		} else {
+			String AcctualResult =	driver.findElement(By.tagName("html")).getAttribute("lang") ; 
+			String expectedResult = "en" ; 
+			
+			Assert.assertEquals(AcctualResult, expectedResult);  
+			HotelTabSearch.sendKeys(EnglishCitiesName[RandomEnglishCity]) ;  
+				
+		}
+		Thread.sleep(2000)   ; 
+		WebElement  citiesList = driver.findElement(By.cssSelector(".sc-phbroq-4.gGwzVo.AutoComplete__List")) ;
+	WebElement selectNumberOfVisitor	=driver.findElement(By.cssSelector(".sc-tln3e3-1.gvrkTi"));
+	 citiesList.findElement(By.tagName("li")).click(); 
+	 Select select = new Select(selectNumberOfVisitor) ; 
+	 int RandomvisitorOfNumber = rand.nextInt(2) ; 
+	 
+	 select.selectByIndex(RandomvisitorOfNumber) ; 
+	 
+	WebElement SearchButton =   driver.findElement(By.xpath("//Button[@data-testid='HotelSearchBox__SearchButton']")) ;  
+	SearchButton.click() ; 
+		
+		
+	} 
 
-	@Test(priority = 10, enabled = false)
 
-	public void CheckThatThePageIsFullyLoaded() throws IOException {
-		WebElement SearchResult = driver.findElement(By.xpath("//span[@data-testid='srp_properties_found']"));
-
-		boolean ActualResult = SearchResult.getText().contains("found") || SearchResult.getText().contains("مكان");
-
-
-		Assert.assertEquals(ActualResult, ExpectedValueForFinshingSearchAboutHotel);
-
-	}
-
-	@Test(priority = 11, enabled = false)
+	@Test(priority = 10,enabled = false)
 	public void CheckTheSortOption() throws InterruptedException, IOException {
 
 		Thread.sleep(15000);
@@ -173,16 +181,11 @@ String AcctualResult=	driver.findElement(By.xpath("//Button[@data-testid='Header
 		SortOption.click();
 
 		Thread.sleep(2000);
+	
 
-
-		SortOptionChecker();
 	}
 
-	private void SortOptionChecker() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	
 
 

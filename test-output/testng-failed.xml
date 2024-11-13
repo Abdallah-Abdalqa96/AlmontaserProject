@@ -5,7 +5,7 @@
     <classes>
       <class name="almosafer.MyFirstProject">
         <methods>
-          <include name="CheckDepatureDate"/>
+          <include name="RandomlyChangeTheLanguage"/>
           <include name="mysetup"/>
         </methods>
       </class> <!-- almosafer.MyFirstProject -->
