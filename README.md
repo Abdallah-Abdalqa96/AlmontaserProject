@@ -1,7 +1,7 @@
-# Al-Masafr Project
+# Al-Mosafer Project
 
 ## Project Description
-"Al-Masafr" is an automation project for testing a website using Java and Selenium. The project includes a series of test cases that help test the website's features, such as registration, adding products, verifying data, and handling reports.
+"Al-Mosafer" is an automation project for testing a website using Java and Selenium. The project includes a series of test cases that help test the website's features, such as registration, adding products, verifying data, and handling reports.
 
 ## Project Content
 - *Automation Tools Used*: 
